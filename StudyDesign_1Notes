@@ -1,0 +1,43 @@
+Notes
+
+Scientific Process in Clinical Research
+1) Observation/Pattern
+2) Research Question
+3) Hypothesis
+4) Study Design/Data Collection
+5) Statistical Analysis
+6) Results/Conclusion
+
+The primary outcome is a specific characteristic that is most suitable to answer the research quesiton. it is: 
+  -measurable: a value can be computed for every individual in the study
+  -clinically meaningful: a good proxy for the clinical phenomenon under study
+  -of greatest importance: the characteristic the researcher is most interested in
+
+Hawthorne effect: If individuals in a study know they are being watched or observed, their behavior may be different. This can introduce an observation bias into the data
+
+
+## Measurement Timing:
+
+Single Observation: one measurement at one point in time for each participant
+
+Longitudinal: repeated information on each study participant in order to measure change over time
+
+Spatial: collects a set of variables in different location on each observaitonal unit at one point in time, with an intnen to determine if some geographic areas are different from others
+
+
+Our three observational study designs we will examine:
+  -Cohort
+  -Case-Control
+  -Cross-Sectional
+
+Cohort study is usually prospective, each cohort is usually risk factor or exposure.
+We can estimate conditional probabilities that do not require knowleged of the relative proportions of exposed and unexposed in the population.
+
+Case-control study is usually retrospective, obsevational study in which the people are selected form those falling into the categories of the outcome
+We can estimate conditional probabilities that do not require knowledge of the relative proportions of diseased and non dieseased in the population
+
+
+
+
+
+
