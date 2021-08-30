@@ -24,6 +24,7 @@ Longitudinal: repeated information on each study participant in order to measure
 
 Spatial: collects a set of variables in different location on each observaitonal unit at one point in time, with an intnen to determine if some geographic areas are different from others
 
+##
 
 Our three observational study designs we will examine:
   -Cohort
@@ -33,11 +34,72 @@ Our three observational study designs we will examine:
 Cohort study is usually prospective, each cohort is usually risk factor or exposure.
 We can estimate conditional probabilities that do not require knowleged of the relative proportions of exposed and unexposed in the population.
 
-Case-control study is usually retrospective, obsevational study in which the people are selected form those falling into the categories of the outcome
+Case-control study is usually retrospective, observational study in which the people are selected form those falling into the categories of the outcome
 We can estimate conditional probabilities that do not require knowledge of the relative proportions of diseased and non dieseased in the population
 
+Matched controls: controls are selected to be matched individually to a particular case on the basis of other characteristics, such as age, sex, presence/absense of comorbitidites, etc.
 
+Cross-sectional study: an observational study in which data are collected on study units at only one point in time. Both a cohort study and a case-control study can be cross-sectional.
+Can be used to:
+  - snapshot of pop
+  - prevalence of disease or risk factors
+  - usually used for associations, not causality; because we don't have temporal information
 
+Cohort 
+adv: can determine which info will be collected, can discover long term realtionships between exposure and multiple diseases
+disadv: **Add here from slide**
 
+Case-control
+adv: cheaper, retrospective (easy data to access), easy to study rare diseases because we just oversample that group, reduce confounding effects using something like matching
+disadv: **Add here from slide**
 
+Cross-sectional
+adv: all measurementas as snapchot, can do prevalence on a SRS
+disadv: **Add here from slide**
+
+^^Those are all observational studies^^
+
+##Experimental Studies
+
+Clinical Trials
+  prospective experiment that looks at interventions, diets, training, basically a "treatment"
+  better for causal claims
+  can be randomized or not
+  randomized trial is different from random sample, randomized trial means they are randomly assigned to placebo or experiment (can be other groups)
+  usually collects multiple measures over time to monitor safety and assess efficacy
+  
+Strengths:
+  assigning causality
+  restrictive inclusion criteria enhance ability to measure effect of treatment without interference of other impactors
+  prospective nature gives researchers the control over what is collected
+  must be approved based on prior evidence and potential impact and safety
+  must be monitored for safety
+  
+Weaknesses:
+  Often expensive
+  can take a long time
+  subject to missing data, dropout of participants
+  since inclusion criteria may be restrictive inferences are also restricted to that population, less applicable to general population
+
+Pragmatic Trials
+  Similar to clinical trials but more open and 'real-world'
+  still study arms
+  still causal claims
+  drawback: inclusion/exclusion criteria is more open, it could "muddy-up" treatment effects
+  
+Lab Experimants
+  exactly what they sound like
+  do not involve humans
+  usually small number of sampling units, completed quickly
+  
+SRS: a sample where everyone in the pop has equal probability of being in the sample
+
+Stratified:
+  Partition population into K strata, sample from each stratum
+  
+  proportionate stratification: 2% from each strata
+  disproportionate stratification: n = 30 from each strata
+  
+One stage cluster: separate pop into clusters, but sample an entire randomly selected cluster.
+Two-stage cluster: take SRS from n randomly selected clusters
 
