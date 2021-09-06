@@ -1,0 +1,32 @@
+population: collection of elements of interest with some interested characteristic
+variable: a characteeristics that takes different values for different elemnts in the population
+random sample: a siubset of independently and randomle selected elements from a population
+random variable: a characteristic that takes fdifferent values for different elements in sample
+sample space: the set of all possilble outcomes of a random variable
+probability: relative frequency of an outcome to all possible outcomes in the sample space
+
+Probability Mass Function
+PMF: funciton that maps a value to a probability
+
+Probability Distribution Function
+PDF: Same thing but for continuous random variables; function maps an interval of y values to the AUC over that interval. The AUC is the probability that Y falls within the interval
+
+Cumulative Distribution Function
+CDF: PDF that maps some value to being less than or equal to that value
+
+
+Random variables have expected values. They also have probability distributions.
+
+Standard error is the standard deviation for the random variable S. The standard error is the standard deviation of the sampling distribution of a statistic. 
+Standard error is the specific sd of how the sample statistic varies around the a sample statistic.
+How a statistic varies around its own population mean value.
+
+the standard deviation of each of these:
+S: standard deviation
+S^2: variance
+Y_bar: mean
+is a standard error
+
+
+
+

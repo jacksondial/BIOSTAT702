@@ -1,0 +1,46 @@
+Lecture 2
+
+Data Types:
+
+-Categorical Data:
+
+1) Binary: only two values are possible, cover all possibilities
+2) Nominal: values are unordered groups for which there is no natural ordering
+3) Ordinal: values recorded are categorized in a natural ordering
+
+-Quantitative Data:
+
+1) Discrete: possible values are isolated (a 'countable' set of values)
+2) Continuous: theoretically, a value always exists between any two given numbers (an 'uncountable' set of values)
+*usually do not distinguish between interval and ratio data. Ratio means 0 has a meaningful value
+
+
+Numerical Summaries:
+
+-measures of central tendency: mean, median, mode
+-measures of spread: standard deviation, variance
+
+Order statistics are the sample data sorted from smallest to largest
+
+Sample variance is the average of the squared deviations of each datum value from the mean, deonted by s^2
+
+The standard deviation is the non negative square root of the variance --> s = sqrt(s^2)
+
+Variance:
+-deviations divided by (n-1)
+-adding constants does not change variance
+-always >= 0, if it is o, it is because all values are exactly the same
+
+IQR is the diistance between the 25th and 75th quantiles
+
+
+
+ASK TINA FOR HER EXPLANATION OF DEGREES OF FREEDOM
+
+
+The whiskers on a boxplot are 1.5 times the IQR
+Values outside of the whiskers are always labeled as outliers in boxplots
+
+
+
+
