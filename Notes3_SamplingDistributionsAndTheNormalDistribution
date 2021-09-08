@@ -27,6 +27,8 @@ S^2: variance
 Y_bar: mean
 is a standard error
 
+standard error = variance/sqrt(n) #I think I heard that right
+
 
 
 
