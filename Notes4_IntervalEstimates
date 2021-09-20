@@ -1,0 +1,43 @@
+Notes4 Interval Estimates
+
+Statistics are random variables, probability distributions of statistics are also called sampling distributions.
+
+Estimand: parameter of interest that is being estimated (parameter)
+Estimator: the statistic used to estimate the parameter, a random variable
+Estimate: A realization of an estimator from a sample drawn from the population distribution
+
+Central Limit Theorem:
+As the sample of the population gets larger and larger, the sampling distribution will become normal, regardless of the population distribution.
+
+Z_n = (Y_bar - /mu) / (/sigma / sqrt(n))
+
+If the population is already normal, then the CLT will kick in quicker, relative to the sampling size. Forget mostly about the n >= 30, because sometimes this is too much and sometimes it is too little.
+
+If the population distribution is normally distributed, I don't need the CLT because the sampling distribution will already be normal.
+
+Interval:
+/mu +- z_{1-p} (\sigma / sqrt(n))
+
+Because we don't actually know \mu, we use y_bar instead of \mu
+
+A research team is interested in SBP among american adults without pre-diabetes or diabetes. In a random sample of n = 40, the sample mean was 117.81 mmHg. Let's assume the SBP in this population is normally distributed with standard deviation sigma = 15.
+
+## See Notes_4.R
+
+In repeated sampling, from a normally fistributed pop with a known sd, 100(1-\alpha)% of all intervals of the form *equation* will in the long run include the population mean
+
+Because we are replacing \sigma with S, the sample variance, the quantity (Y_bar -\mu) / (S/sqrt(n)) no longer has a normal distribution
+
+
+
+
+
+Clinical interpretation of a confidence interval:
+  - We are 95% confident that the single interval we constructed fr0m our sample contains the population mean.
+
+
+
+
+
+
+

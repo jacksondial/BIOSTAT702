@@ -1,0 +1,27 @@
+Hypothesis Testing
+
+Steps:
+
+1) Know the data, study design and assumptions
+2) Set up statistical hypotheses
+  - 2-sided are \neq
+  - 1-tailed are <= & > | >= & <
+3) Choose a test statistic and determine the sampling distribution
+  - Test statistic could be the mean, median, or even just the first sampled observation
+4) Calculate the test statistical value and p-value
+5) Draw inference based on significance level
+
+Type I error: Rejecting the null when the null is true, we fix this in practice to be small and  denote is by \alpha = P(reject H_o | H_o is true)
+
+Type II error: Failing to reject the null when the alternative is true, denoted by \beta = P(fail to reject H_o | H_a is true)
+
+Power: The power of the statistical test is (1-\beta) the probability of rejecting the null when the alternative is true.
+
+\alpha and \beta are inversely related, but the only way to decrease both of them simulatneously is to increase sample size.
+
+
+
+
+
+
+

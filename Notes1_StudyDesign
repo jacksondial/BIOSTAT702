@@ -47,15 +47,34 @@ Can be used to:
 
 Cohort 
 adv: can determine which info will be collected, can discover long term realtionships between exposure and multiple diseases
-disadv: **Add here from slide**
+disadv: 
+1. Expensive to follow people over time and some participants may drop out of
+the study or be difficult to find.
+2. Must be careful about choosing the outcome of interest (endpoint) to
+monitor at the start.
+3. Must wait until a pre-specified number of endpoints are observed to be able
+to draw conclusions. (Can take a long time.)
+4. Can be hard to determine who was actually “exposed” and who was not.
+5. To observe rare events, you need very large cohorts.
 
 Case-control
 adv: cheaper, retrospective (easy data to access), easy to study rare diseases because we just oversample that group, reduce confounding effects using something like matching
-disadv: **Add here from slide**
+disadv: 
+1. Difficult to select a truly comparable control group (selection bias). May miss
+some important confounders.
+2. Study participants may not be able to recall the past correctly (recall bias).
+3. Desired data may not be available in your databases (missingness).
 
 Cross-sectional
 adv: all measurementas as snapchot, can do prevalence on a SRS
-disadv: **Add here from slide**
+disadv: 
+1. Response bias: those who don’t participate may be different from those who do.
+2. Since only one time-point, cannot assess causal or time-dependent relationships.
+(Which came first? Lack of exercise or heart disease?)
+3. Prevalence/incidence bias, meaning that if a risk factor results in a quick death,
+those people will not be in your sample. It will look like that risk factor does not
+have a lot of impact.
+4. Rare outcomes of interest need very large studies.
 
 ^^Those are all observational studies^^
 
