@@ -21,7 +21,13 @@ Power: The power of the statistical test is (1-\beta) the probability of rejecti
 
 
 
+Type I: Rejecting the null when the null is true and the alternative is false
+Type I: \alpha
 
+Type II: Rejecting the alternative when the alternative is true
+Type II: \beta
+
+Power = (1- \beta)
 
 
 
