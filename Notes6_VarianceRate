@@ -1,7 +1,25 @@
-Section 6: Testing of a normal population variance and a Poisson Rate
+Section 6: Hypothesis testing of a normal population variance and a Poisson Rate
+
+When conductingg a hypothesis test for the true variance, there is not central limit theorem that helps us to assume normality regardless of sample size. We simply must check the normality of the data itself.
+
+[(n-1)(s^2)]/sigma^2 is the value of the test statistic
+
+regarding asymmetric distributions;
+If the test statistic is less than or equal to the hypothesized value, we double the area to the left of the test statistic. If the test statistic is great then or equal to the hypothesized value, we double the area of the distribution to the right of the test statistic.
+THIS IS ONLY REGARDING TWO-SIDED TESTS, of course
+
+The reason why we do not compute the negative and positive test statistics in a chi-squared distribution is because there is no relation between the negative and positive test statistics.
 
 
+Poisson Distribution
+- discrete, models a rate: some count over a denom
 
+Assumptions:
+  - independent events
+  - Theoretically can have an infinite number of events
+  - events do not occur simultaneously
+  
+Poisson Rate confidence interval
 
-
+sqrt(Y)+-(z_{1-alpha/2}/2)
 
