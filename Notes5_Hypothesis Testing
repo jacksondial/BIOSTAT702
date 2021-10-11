@@ -33,8 +33,12 @@ Power = (1- \beta)
 For one sided confidence intervals, the other bound is either infinity or negative infinity
 
 
+A general rule of thumb for binary data and population proportions is
 
+n*pi_0*(1-pi_0) > 5
 
+Calculating Power:
+Very related to sample size calculations
 
 
 
