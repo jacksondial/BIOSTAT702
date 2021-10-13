@@ -1,0 +1,18 @@
+Section 7: Two Sample Tests
+
+
+Dont need CLT here because each of the two samples are normally distributed. The difference of two independent normally distributed random variables is also a normally distributed random variable.
+
+
+(ybar1 - ybar2) +- z_{1-alpha / 2} * sqrt((sigma_1 ^2 / n_1) + (sigma_2 ^2 / n_2))
+
+
+A good approximation for the distribution of T is t_v, where:
+
+v = { (v1 + v2)^2 / [(v1^2 / (n1-1)) + (v2^2 / (n2-1))]} and v_i = s_i^2 / n_i for i = 1,2
+
+
+
+
+
+

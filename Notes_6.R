@@ -47,5 +47,19 @@ sqrt((35-1)*11.4^2 / 21.664)
 
 
 
+#want to contruct a donfidence around the unknown rate of bladder cancer death among
+#workers aged 40-84.
+
+#the rate of interest is the number of deaths per 10 years, this is why we are using 
+#poisson process.
+
+#approximate:
+#(sqrt(y) - z_{1-\alpha / 2}*sqrt(1/4), sqrt(y) + z_{1-\alpha / 2}*sqrt(1/4) )^2
+#(sqrt(21)- 1.96/2, sqrt(21) + 1.96/2)^2
+
+#exact:
+#(1/2 * chi^2_{0.05,42}, 1/2 * chi^2_{.95,44})
+
+
 
 
