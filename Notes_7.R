@@ -28,7 +28,25 @@ n2 <- 45
 (ybar1 - ybar2) - 1.645*sqrt( (sd1/n1) + (sd2/n2) )
 
 
-satherwait df:
+#sattherwaite df:
   
 v1 <- sd1^2 / n1; v2 <- sd2^2 / n2
 nu <- (v1+v2)^2 / (v1^2/ (n1-1) + v2^2 / (n2-1))
+
+
+
+#practice f distribution
+
+
+qf(.05, 3, 5)
+
+1/qf(.95,5,3)
+
+#Find F_30,25,.01
+qf(.01,30,25)
+
+#Find: 𝑝, if 𝐹10,4,𝑝 = 0.1668. 
+pf(.1668, 10,4)
+
+
+

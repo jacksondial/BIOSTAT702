@@ -12,6 +12,26 @@ A good approximation for the distribution of T is t_v, where:
 v = { (v1 + v2)^2 / [(v1^2 / (n1-1)) + (v2^2 / (n2-1))]} and v_i = s_i^2 / n_i for i = 1,2
 
 
+The sampling distribution when the variances are assumed to be equal is t with n1+n2-2 degrees of freedom
+
+The sampling distribution when the variances are NOT assumed to be equal is t with *we are not sure* degrees of freedom. This is when we use the satterthwaite to approximate the degrees of freedom
+
+How to know if your variances are assumed to be equal:
+
+There are 2 approaches, we might use previous knowledge/clinical knowledge, or we could use a rule of thumb:
+
+  - If the ratio of the variances are >3, we use the satterthwaite approximation
+  - If the decisions of the two t-tests are the same, then is does not matter either way
+  - If the decisions of the two t-tests are different, then it depends:
+    + Make less assumptions about the data - satter
+    + If type I error is really bad, use the conservative test (the one that fails to reject)
+    + Present both, one as the main analysis and the other as sensitivity
+
+F = [ (s_1^2 / sigma_1^2) / (s_2^2 / sigma_2^2) ]
+F distribution has 2 parameters, the numerator and denominator degrees of freedom (v1 & v2)
+
+Since the null hypothesis assumes sigma1 = sigma2, they cancel out in the formula above which leaves us with (s1^2 / s2^2)
+
 
 
 
