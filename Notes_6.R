@@ -40,7 +40,7 @@ par(mfrow = c(1,1))
 
 #(0, sqrt[(n-1)*s^2]/Chi^2_alpha)
 
-qchisq(0.05, df = n-1)
+qchisq(0.05, df = n-1) #21.664
 sqrt((35-1)*11.4^2 / 21.664)
 
 (0,14.28)
