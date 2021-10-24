@@ -486,5 +486,104 @@ Similar analyses as described in Section 4.3 above will be performed, with serum
 
 # Question 2
 
+```{r}
+ckdPos
+ckdNeg
+```
 
+There are `r nrow(ckdPos)` individuals with positive CKD status, and `r nrow(ckdNeg)` individuals with negative CKD status.
+
+### Variance Ratio Test
+
+We will assume that our test statistic follows this distribution:
+
+$$
+F = \frac{X_1 / \nu_1}{X_2/\nu_2} \sim F_{\nu_1,\nu_2}
+$$
+
+```{r}
+posvec <- ckdPos$serumK
+negvec <- ckdNeg$serumK
+ggplot(ckdPos) +
+  stat_qq(aes(sample = posvec))+
+  stat_qq_line((aes(sample = posvec)))+
+  labs(title = "QQ-Plot for normality with positive CKD status")
+
+ggplot(ckdNeg) +
+  stat_qq(aes(sample = negvec))+
+  stat_qq_line((aes(sample = negvec)))+
+  labs(title = "QQ-Plot for normality with negative CKD status")
+```
+
+
+Where $X_1 \sim \chi^2_{v_1}$ and represents the distribution of individuals with negative CKD status, and $X_2 \sim \chi^2_{v_2}$ represents the distribution of individuals with positive CKD status.
+
+The hypotheses for this test are:
+
+$$
+H_0: \sigma^2_1 = \sigma^2_2
+$$
+
+$$
+H_a: \sigma^2_1 \neq \sigma^2_2
+$$
+
+We will use a level of significance of $\alpha = 0.05$
+
+```{r}
+var.test(negvec, posvec, two.sided = TRUE)
+```
+
+Since the variance test for equality produced a non-significant p-value, we fail to reject the null hypothesis and can conclude that the variances are equal.
+
+### T-test
+
+Now that we have proved that we can assume equal variance, we will run a two-sample t-test for the true difference of means.
+
+
+#### Step 1: Know the data
+
+```{r}
+ggplot(ads, aes(x = as.factor(CKD), y = serumK))+
+  geom_boxplot()
+```
+
+We assume that our populations are both normally distributed with unknown mean and variances, and equal variance.
+
+#### Step 2: Set up Statistical Hypotheses
+
+$$
+H_0: \delta = 0
+$$
+$$
+H_a: \delta \neq 0
+$$
+Where $\delta = \mu_1 - \mu_2$ and $\mu_1 = \text{ mean serum K for individuals with negative CKD status}$ and $\mu_2 = \text{ mean serum K for individuals with positive CKD status.}$ This test will use a level of significance of $\alpha = .05$
+
+#### Step 3: Choose a Test Statistic and Determine Sampling Distribution
+
+$$
+T = \frac{(\bar{Y_1} - \bar{Y_2}) - \delta_0}{\sqrt{\frac{S^2_1}{n_1} +\frac{S^2_2}{n_2}}} \sim T_{t_{n_1 + n_2 - 2}}
+$$
+
+#### Step 4: Calculate the Test Statistic and P-value
+
+
+```{r}
+mytest <- t.test(negvec, posvec, var.equal = TRUE)
+```
+
+The test statistic from our test is `r mytest$statistic`, and the p-value is `r mytest$p.value`.
+
+
+#### Step 5: Draw Inference Based on Significance Level
+
+Based on the results of our test, we fail to reject the null hypothesis that the difference in mean serum K between individuals with negative CKD status and positive CKD status is 0. This means that there is no significant difference in serum K levels when partitioned on positive/negative CKD status.
+
+These results do not align with my original hypotheses, as I hypothesized that higher levels of serum K is associated with lower risk of CKD. Our results tell us there is no association.
+
+
+#### Confidence Interval
+
+The confidence interval for the true difference in means between individuals with 
 
