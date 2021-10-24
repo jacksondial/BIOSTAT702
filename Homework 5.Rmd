@@ -482,24 +482,23 @@ Where $\delta = \mu_1 - \mu_2$ is the unknown difference in mean eGFR between th
 
 Similar analyses as described in Section 4.3 above will be performed, with serum K replaced with dietary K intake.
 
+
+
 \pagebreak
 
 # Question 2
-
-```{r}
-ckdPos
-ckdNeg
-```
 
 There are `r nrow(ckdPos)` individuals with positive CKD status, and `r nrow(ckdNeg)` individuals with negative CKD status.
 
 ### Variance Ratio Test
 
-We will assume that our test statistic follows this distribution:
+We will assume that our variance ratio test statistic follows this distribution:
 
 $$
 F = \frac{X_1 / \nu_1}{X_2/\nu_2} \sim F_{\nu_1,\nu_2}
 $$
+
+Where $X_1 \sim \chi^2_{v_1}$ and represents the distribution of individuals with negative CKD status, and $X_2 \sim \chi^2_{v_2}$ represents the distribution of individuals with positive CKD status.
 
 ```{r}
 posvec <- ckdPos$serumK
@@ -515,8 +514,6 @@ ggplot(ckdNeg) +
   labs(title = "QQ-Plot for normality with negative CKD status")
 ```
 
-
-Where $X_1 \sim \chi^2_{v_1}$ and represents the distribution of individuals with negative CKD status, and $X_2 \sim \chi^2_{v_2}$ represents the distribution of individuals with positive CKD status.
 
 The hypotheses for this test are:
 
@@ -563,7 +560,7 @@ Where $\delta = \mu_1 - \mu_2$ and $\mu_1 = \text{ mean serum K for individuals 
 #### Step 3: Choose a Test Statistic and Determine Sampling Distribution
 
 $$
-T = \frac{(\bar{Y_1} - \bar{Y_2}) - \delta_0}{\sqrt{\frac{S^2_1}{n_1} +\frac{S^2_2}{n_2}}} \sim T_{t_{n_1 + n_2 - 2}}
+T = \frac{(\bar{Y_1} - \bar{Y_2}) - \delta_0}{\sqrt{\frac{S^2_p}{n_1} +\frac{S^2_p}{n_2}}} \sim T_{t_{n_1 + n_2 - 2}}
 $$
 
 #### Step 4: Calculate the Test Statistic and P-value
@@ -585,5 +582,136 @@ These results do not align with my original hypotheses, as I hypothesized that h
 
 #### Confidence Interval
 
-The confidence interval for the true difference in means between individuals with 
+The confidence interval for the true difference in mean serum K between individuals with positive and negative CKD status is [`r mytest$conf.int[1`, `r mytest$conf.int[2`. As 0 is included in this interval, we can conclude there is no difference in mean serum K between individuals with positive and negative CKD status.
+
+
+\pagebreak
+
+
+
+
+
+
+
+
+# Question 3
+
+```{r}
+dietAdq <- ads %>%
+  mutate(dietK2Cat = case_when(
+    dietKCat %in% c("borderline adequate intake", "adequate intake") ~ "adequate",
+    dietKCat == "inadequate intake" ~ "inadequate")) %>% 
+  filter(dietK2Cat == "adequate")
+
+dietInadq <- ads %>%
+  mutate(dietK2Cat = case_when(
+    dietKCat %in% c("borderline adequate intake", "adequate intake") ~ "adequate",
+    dietKCat == "inadequate intake" ~ "inadequate")) %>% 
+  filter(dietK2Cat == "inadequate")
+
+```
+
+There are `r nrow(dietInadq)` individuals with inadequate dietary K, and `r nrow(dietAdq)` individuals with adequate dietary K.
+
+### Variance Ratio Test
+
+We will assume that our variance ratio test statistic follows this distribution:
+
+$$
+F = \frac{X_1 / \nu_1}{X_2/\nu_2} \sim F_{\nu_1,\nu_2}
+$$
+
+
+Where $X_1 \sim \chi^2_{v_1}$ and represents the distribution of individuals with inadequate dietary K, and $X_2 \sim \chi^2_{v_2}$ represents the distribution of individuals with adequate serum K.
+
+```{r}
+adqvec <- dietAdq$eGFR
+inadqvec <- dietInadq$eGFR
+ggplot(dietInadq) +
+  stat_qq(aes(sample = inadqvec))+
+  stat_qq_line((aes(sample = inadqvec)))+
+  labs(title = "QQ-Plot for normality with inadeqaute dietary K")
+
+ggplot(dietAdq) +
+  stat_qq(aes(sample = adqvec))+
+  stat_qq_line((aes(sample = adqvec)))+
+  labs(title = "QQ-Plot for normality with negative CKD status")
+```
+
+
+The hypotheses for this test are:
+
+$$
+H_0: \sigma^2_1 = \sigma^2_2
+$$
+
+$$
+H_a: \sigma^2_1 \neq \sigma^2_2
+$$
+
+We will use a level of significance of $\alpha = 0.05$
+
+```{r}
+var.test(inadqvec, adqvec, two.sided = TRUE)
+```
+
+Since the variance test for equality produced a significant p-value, we reject the null hypothesis and can conclude that the variances are unequal.
+
+### T-test
+
+Now that we have assumed unequal variance, we must use a Satterthwaite approximation to approximate the degrees of freedom for our t distribution.
+
+
+#### Step 1: Know the data
+
+```{r}
+combined <- dietAdq %>% rbind(dietInadq)
+ggplot(combined, aes(x = as.factor(dietK2Cat), y = eGFR))+
+  geom_boxplot()
+```
+
+We assume that our populations are both normally distributed with unknown mean and variances, and unequal variance.
+
+#### Step 2: Set up Statistical Hypotheses
+
+$$
+H_0: \delta = 0
+$$
+
+$$
+H_a: \delta \neq 0
+$$
+
+Where $\delta = \mu_1 - \mu_2$ and $\mu_1 = \text{ mean eGFR for individuals with inadequate dietary K}$ and $\mu_2 = \text{ mean eGFR for individuals with adequate dietary K.}$ This test will use a level of significance of $\alpha = .05$
+
+#### Step 3: Choose a Test Statistic and Determine Sampling Distribution
+
+$$
+T = \frac{(\bar{Y_1} - \bar{Y_2}) - \delta_0}{\sqrt{\frac{S^2_1}{n_1} +\frac{S^2_2}{n_2}}} \sim T_{t_{n_1 + n_2 - 2}}
+$$
+
+#### Step 4: Calculate the Test Statistic and P-value
+
+
+```{r}
+mytest2 <- t.test(inadqvec, adqvec, var.equal = FALSE)
+```
+
+The test statistic from our test is `r mytest$statistic`, and the p-value is `r mytest$p.value`.
+
+
+#### Step 5: Draw Inference Based on Significance Level
+
+Based on the results of our test, we fail to reject the null hypothesis that the difference in mean eGFR between individuals with inadequate dietary K and adequate dietary K is 0. This means that there is no significant difference in eGFR levels when partitioned on inadequate/adequate dietary K.
+
+These results do not align with my original hypotheses, as I hypothesized that higher levels of dietary K is associated with lower risk of kidney function. Our results tell us there is no association.
+
+
+#### Confidence Interval
+
+The confidence interval for the true difference in mean eGFR between individuals with inadequate and adequate dietary K is [`r mytest2$conf.int[1`, `r mytest2$conf.int[2`. As 0 is included in this interval, we can conclude there is no difference in mean mean eGFR between individuals with inadequate and adequate dietary K.
+
+
+
+
 
