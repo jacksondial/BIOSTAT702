@@ -296,21 +296,195 @@ $$
 D \sim N(\mu_1-\mu_2, \frac{\sigma^2}{n_1} + \frac{\sigma^2}{n_2})
 $$
 
-Hypotheses 
+$$
+H_0: \delta = 0
+$$ 
+
+$$
+H_a: \delta \neq 0
+$$
+
+Where $\delta = \mu_1 - \mu_2$ is the unknown difference in mean serum K between those with positive CKD status $(\mu_1)$ and negative CKD status $(\mu_2)$.
+
+
 
 #### If variances not equal
 
+Perform a two-sample t-test for the true difference in means, with the following test statistic:
+
+$$
+T = \frac{(\bar{Y_1} - \bar{Y_2}) - \delta_0}{\sqrt{\frac{S^2_1}{n_1} +\frac{S^2_2}{n_2}}}
+$$
+
+This creates an issue, however, as $T$ does no longer follow a $t_{n_1 + n_2 - 2}$ distribution. The exact distribution of this statistic is unknown, so we will use a Satterthwaite approximation instead, where:
+
+$$
+\nu = \frac{(v_1 + v_2)^2}{\frac{v^2_1}{n_1 - 1} + \frac{v^2_2}{n_2 - 1}}
+$$
+
+and
+
+$$
+\nu_i = \frac{s^2_i}{n_i} \text{ for } i = 1,2
+$$
+
+This $t_\nu$ distribution is now used as an approximation of the distribution above and can be used to conduct hypothesis testing and construct confidence intervals.
 
 
+We will make the following assumptions:
+
+$$
+Y_1 \sim N(\mu_1, \sigma^2_1)
+$$
+$$
+Y_2 \sim N(\mu_2, \sigma^2_2)
+$$
+
+We will test the following hypotheses:
+
+$$
+H_0: \delta = 0
+$$
+
+$$
+H_a: \delta \neq 0
+$$
+
+Where $\delta = \mu_1 - \mu_2$ is the unknown difference in mean serum K between those with positive CKD status $(\mu_1)$ and negative CKD status $(\mu_2)$. 
 
 \pagebreak
 
 
 ## Section 4.2
 
+Similar analyses as described in Section 4.1 above will be performed, with serum K replaced with dietary K intake.
+
+## Section 4.3
 
 
 
+```{r}
+ggplot(ads, aes(x = as.factor(serumKCat)))+
+  geom_histogram(stat = "count")
+
+ggplot(ads, aes(x = as.factor(serumKCat), group = as.factor(serumKCat), y = eGFR))+
+  geom_boxplot()
+```
+
+The two populations we are examining, those with low-normal Serum K and those with normal Serum K, are both assumed to be normally distributed, and to be independent of each other.
+
+
+We will assume that the population of those with low-normal Serum K: $ \sim N(\mu_1, \sigma^2_1)$
+
+We will assume that the population of those with normal Serum K: $ \sim N(\mu_2, \sigma^2_2)$
+
+```{r}
+lownor <- ads %>% filter(serumKCat == "low-normal")
+nor <- ads %>% filter(serumKCat == "normal")
+
+xbar1 <- mean(lownor$eGFR)
+s1 <- sd(lownor$eGFR)
+
+xbar2 <- mean(nor$eGFR)
+s2 <- sd(nor$eGFR)
+
+```
+
+A random sample of $n_1 = 137$ was taken and the sample mean +/- sample variance was found to be: `r xbar1` $+/-$ `r s1`. 
+
+A random sample of $n_2 = 163$ was taken and the sample mean +/- sample variance was found to be: `r xbar2` $+/-$ `r s2`.
+
+The random variables of the mean eGFR for respective populations of low-normal/normal serum K are also assumed to be independent of each other.
+
+One way we can determine if variance is assumed to be normal is to perform the variance ratio test for individuals with low-normal serum K and normal serum K.
+
+A second way we could test for equal variances is to compute a confidence interval for each of the population variances, and if they overlap at all then we have evidence to assume equal variance. If they do not overlap, we have evidence to say that they are unequal.
+
+#### If variances are equal
+
+Perform a two-sample t-test for the true difference in means, with the following parameters:
+
+$$
+Y_1 \sim N(\mu_1, \sigma^2) \text{ with observations } Y_{11}, Y_{12}, ... , Y_{1n_1}
+$$
+
+$$
+
+Y_2 \sim N(\mu_2, \sigma^2) \text{ with observations } Y_{21}, Y_{22}, ... , Y_{2n_1}
+$$
+
+Note that the means are assumed to be different, but the variances are assumed to be equal, however both the means and the variance are assumed to be unknown.
+
+Of interest is $\delta = \mu_1 - \mu_2$, but we use $D = \bar{Y_1} - \bar{Y_2}$
+
+We will assume:
+
+$$
+D \sim N(\mu_1-\mu_2, \frac{\sigma^2}{n_1} + \frac{\sigma^2}{n_2})
+$$
+
+$$
+H_0: \delta = 0
+$$ 
+
+$$
+H_a: \delta \neq 0
+$$
+Where $\delta = \mu_1 - \mu_2$ is the unknown difference in mean eGFR between those with low-normal serum K $(\mu_1)$ and normal serum K $(\mu_2)$.
+
+
+#### If variances not equal
+
+Perform a two-sample t-test for the true difference in means, with the following test statistic:
+
+$$
+T = \frac{(\bar{Y_1} - \bar{Y_2}) - \delta_0}{\sqrt{\frac{S^2_1}{n_1} +\frac{S^2_2}{n_2}}}
+$$
+
+This creates an issue, however, as $T$ does no longer follow a $t_{n_1 + n_2 - 2}$ distribution. The exact distribution of this statistic is unknown, so we will use a Satterthwaite approximation instead, where:
+
+$$
+\nu = \frac{(v_1 + v_2)^2}{\frac{v^2_1}{n_1 - 1} + \frac{v^2_2}{n_2 - 1}}
+$$
+
+and
+
+$$
+\nu_i = \frac{s^2_i}{n_i} \text{ for } i = 1,2
+$$
+
+This $t_\nu$ distribution is now used as an approximation of the distribution above and can be used to conduct hypothesis testing and construct confidence intervals.
+
+
+We will make the following assumptions:
+
+$$
+Y_1 \sim N(\mu_1, \sigma^2_1)
+$$
+$$
+Y_2 \sim N(\mu_2, \sigma^2_2)
+$$
+
+We will test the following hypotheses:
+
+$$
+H_0: \delta = 0
+$$
+
+$$
+H_a: \delta \neq 0
+$$
+
+Where $\delta = \mu_1 - \mu_2$ is the unknown difference in mean eGFR between those with low-normal serum K $(\mu_1)$ and normal serum K $(\mu_2)$. 
+
+
+## Section 4.4
+
+Similar analyses as described in Section 4.3 above will be performed, with serum K replaced with dietary K intake.
+
+\pagebreak
+
+# Question 2
 
 
 
