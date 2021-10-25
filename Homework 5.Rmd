@@ -246,9 +246,9 @@ ggplot(ads, aes(x = as.factor(CKD), group = as.factor(CKD), y = serumK))+
 The two populations we are examining, those with positive CKD status and those with negative CKD status, are both assumed to be normally distributed, and to be independent of each other.
 
 
-We will assume that the population of those with positive CKD status: $ \sim N(\mu_1, \sigma^2_1)$
+We will assume that the population of those with positive CKD status: $\sim N(\mu_1, \sigma^2_1)$
 
-We will assume that the population of those with negative CKD status: $ \sim N(\mu_2, \sigma^2_2)$
+We will assume that the population of those with negative CKD status: $\sim N(\mu_2, \sigma^2_2)$
 
 ```{r}
 ckdPos <- ads %>% filter(CKD == 1)
@@ -282,9 +282,9 @@ Y_1 \sim N(\mu_1, \sigma^2) \text{ with observations } Y_{11}, Y_{12}, ... , Y_{
 $$
 
 $$
-
 Y_2 \sim N(\mu_2, \sigma^2) \text{ with observations } Y_{21}, Y_{22}, ... , Y_{2n_1}
 $$
+
 
 Note that the means are assumed to be different, but the variances are assumed to be equal, however both the means and the variance are assumed to be unknown.
 
@@ -336,6 +336,7 @@ We will make the following assumptions:
 $$
 Y_1 \sim N(\mu_1, \sigma^2_1)
 $$
+
 $$
 Y_2 \sim N(\mu_2, \sigma^2_2)
 $$
@@ -361,8 +362,6 @@ Similar analyses as described in Section 4.1 above will be performed, with serum
 
 ## Section 4.3
 
-
-
 ```{r}
 ggplot(ads, aes(x = as.factor(serumKCat)))+
   geom_histogram(stat = "count")
@@ -374,9 +373,9 @@ ggplot(ads, aes(x = as.factor(serumKCat), group = as.factor(serumKCat), y = eGFR
 The two populations we are examining, those with low-normal Serum K and those with normal Serum K, are both assumed to be normally distributed, and to be independent of each other.
 
 
-We will assume that the population of those with low-normal Serum K: $ \sim N(\mu_1, \sigma^2_1)$
+We will assume that the population of those with low-normal Serum K: $\sim N(\mu_1, \sigma^2_1)$
 
-We will assume that the population of those with normal Serum K: $ \sim N(\mu_2, \sigma^2_2)$
+We will assume that the population of those with normal Serum K: $\sim N(\mu_2, \sigma^2_2)$
 
 ```{r}
 lownor <- ads %>% filter(serumKCat == "low-normal")
@@ -409,7 +408,6 @@ Y_1 \sim N(\mu_1, \sigma^2) \text{ with observations } Y_{11}, Y_{12}, ... , Y_{
 $$
 
 $$
-
 Y_2 \sim N(\mu_2, \sigma^2) \text{ with observations } Y_{21}, Y_{22}, ... , Y_{2n_1}
 $$
 
@@ -461,6 +459,7 @@ We will make the following assumptions:
 $$
 Y_1 \sim N(\mu_1, \sigma^2_1)
 $$
+
 $$
 Y_2 \sim N(\mu_2, \sigma^2_2)
 $$
@@ -582,7 +581,7 @@ These results do not align with my original hypotheses, as I hypothesized that h
 
 #### Confidence Interval
 
-The confidence interval for the true difference in mean serum K between individuals with positive and negative CKD status is [`r mytest$conf.int[1`, `r mytest$conf.int[2`. As 0 is included in this interval, we can conclude there is no difference in mean serum K between individuals with positive and negative CKD status.
+The confidence interval for the true difference in mean serum K between individuals with positive and negative CKD status is [`r mytest$conf.int[1]`, `r mytest$conf.int[2]`. As 0 is included in this interval, we can conclude there is no difference in mean serum K between individuals with positive and negative CKD status.
 
 
 \pagebreak
@@ -697,7 +696,7 @@ $$
 mytest2 <- t.test(inadqvec, adqvec, var.equal = FALSE)
 ```
 
-The test statistic from our test is `r mytest$statistic`, and the p-value is `r mytest$p.value`.
+The test statistic from our test is `r mytest2$statistic`, and the p-value is `r mytest2$p.value`.
 
 
 #### Step 5: Draw Inference Based on Significance Level
@@ -709,9 +708,4 @@ These results do not align with my original hypotheses, as I hypothesized that h
 
 #### Confidence Interval
 
-The confidence interval for the true difference in mean eGFR between individuals with inadequate and adequate dietary K is [`r mytest2$conf.int[1`, `r mytest2$conf.int[2`. As 0 is included in this interval, we can conclude there is no difference in mean mean eGFR between individuals with inadequate and adequate dietary K.
-
-
-
-
-
+The confidence interval for the true difference in mean eGFR between individuals with inadequate and adequate dietary K is [`r mytest2$conf.int[1]`, `r mytest2$conf.int[2]`. As 0 is included in this interval, we can conclude there is no difference in mean mean eGFR between individuals with inadequate and adequate dietary K.
