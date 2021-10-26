@@ -1,0 +1,52 @@
+---
+title: "Homework 6"
+author: "Jackson Dial"
+date: "10/26/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+### Part A
+
+How much power would there be to detect the clinically relevant difference at the 0.05 significance level, if 20 individuals who spike in PF4 and 20 individuals who do not spike in PF4 are enrolled? Show some methodology for full credit.
+
+```{r}
+MyPwrFun <- function(alpha, m1, m2, s1, s2, n1, n2){
+  z1a2 <- qnorm(1 - alpha / 2)
+  za2 <- qnorm(alpha / 2)
+  quant <- (m1-m2) / sqrt( (s1^2/n1) + (s2^2/n2) )
+  beta <- pnorm(z1a2 - quant) - pnorm(za2 - quant)
+  power <- 1- beta
+  return(power)
+}
+
+power1 <- MyPwrFun(alpha = .05, m1 = 1, m2 = .8, s1 = .32, s2 = .04, n1 = 20, n= 20)
+```
+
+The power for this scenario would be `r round(power1,2)`. 
+
+
+
+### Part B
+
+Power is the probability of rejecting the null hypothesis when the alternative hypothesis is true. It is affected by variability, and as variability increases, power decreases.If we enroll more individuals in the population with more variability, that normalizes the variance of that group by a larger value, reducing variability, given that we have assumed normally distributed source populations.
+
+### Part C
+
+
+
+
+
+
+
+
+
+
+
+
+

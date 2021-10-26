@@ -1,0 +1,18 @@
+Section 8 notes: Paired Tests and Nonparametric Tests
+
+Benefits of pairing:
+  - Each person is own control, reduces variability
+  - if correlation between pairs is high, variability of the difference between the groups will be lower
+  - Only need to sample n people
+  
+Drawbacks of pairing:
+  - Fewer degrees of freedom, yielding higher critical values
+  - Another one in the notes, section 8-5
+  
+"-2psigma_1sigma_2" is the covariance, which is subtracted off and is what reduces the variance
+
+Nonparametric and distribution free are used interchangibly, though there is a slight difference. nonparametric means we are testing a statistic that does not have a parameter. Such as an associaiton.... there is not really a parameter. Distribution free means that my test statistic does not have a known, named sampling distribution.
+
+
+A wilcoxon singed-rank test is for a one-sample or paired data setting
+
