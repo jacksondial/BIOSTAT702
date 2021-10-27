@@ -3,10 +3,16 @@ title: "Homework 6"
 author: "Jackson Dial"
 date: "10/26/2021"
 output: word_document
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+```
+
+```{r}
+library(tidyverse)
 ```
 
 ## Question 1
@@ -47,23 +53,60 @@ for (x in 0:40){
 
 A sample split of 36-4 observations per group would yield us the highest power, with power being calculated as 0.9396 for that split.
 
-## Quuestion 2
+## Question 2
 
-### Part 1
+Investigators hope to determine if a large dose of vitamin E will prevent cancer. The investigators will first conduct a feasibility study to determine the dosage of vitamin E. The investigators believe that 80% of participants on a high dose regimen will achieve adequate serum levels while 64% of those on a medium dose regimen will achieve adequate intake.
+
+### Part A
+
+How large of a sample is needed to have 90% power of a two-sided test of proportions at a 0.05 significance level of .05? Assume equal allocation to the two arms.
 
 ```{r}
 MyPwrFun2 <- function(p1, p2, alpha, p.bar, n1, n2){
-  z1a2 <- qnorm(alpha)
+  z1a2 <- qnorm(1- alpha/2)
   d <- abs(p1-p2)
-  quant <- (d - (z1a2 * sqrt(p.bar * (1 - p.bar) ( (1/n1) + (1/n2) ) ) ) ) / (sqrt(((p1 * (1-p1) ) / n1) + (p2 * (1-p2) / n2)))
+  quant <- (d - (z1a2 * sqrt(p.bar * (1 - p.bar) * ( (1/n1) + (1/n2) ) ) ) ) / (sqrt(((p1 * (1-p1) ) / n1) + (p2 * (1-p2) / n2)))
   pnorm(quant)
+}
+
+SampSizePropsFun <- function(alpha, k, beta, p1, p2){
+  z1a2 <- qnorm(1-alpha/2)
+  z1b <- qnorm(1-beta)
+  pstar <- (p1 + k * p2) / (1 + k)
+  firstquantnum <- z1a2 * sqrt( pstar * (1- pstar) * (1 + (1/k)))
+  secondquantnum <- z1b * sqrt( p1 * (1 - p1) + ((p2 * (1-p2))/k))
+  numerator <- (firstquantnum + secondquantnum)^2
+  denom <- (p1 - p2)^2
+  n <- numerator / denom
+  n
+}
+#k = n2/n1 and is only used for unequal allocation of observations
+
+ans2a <- ceiling(SampSizePropsFun(alpha = .05, beta = .1, k = 1, p1 = .8, p2 = .64))
+ans2a
+```
+
+
+A sample size of `r 2*ans2a` is needed to have a power of 90% using equal allocation.
+
+### Part B
+
+Create a smooth plot of power as a function of sample size per group assuming equal allocation. Use a dense grid of sample sizes, i.e., nn <- 1:200. How much power does a sample size of 180 per group yield?
+
+
+```{r}
+powerdf2 <- data.frame()
+for (x in 1:200){
+  outputs <- MyPwrFun2(p1 = .8, p2 = .64, alpha = .05, p.bar = .72, n1 = x, n2 = 200-x)
+  powerdf2 <- rbind(powerdf2, c(x, outputs))
 }
 
 
 
 
-
 ```
+
+
 
 
 
