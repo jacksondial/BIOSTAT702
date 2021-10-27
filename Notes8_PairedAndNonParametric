@@ -14,5 +14,18 @@ Drawbacks of pairing:
 Nonparametric and distribution free are used interchangibly, though there is a slight difference. nonparametric means we are testing a statistic that does not have a parameter. Such as an associaiton.... there is not really a parameter. Distribution free means that my test statistic does not have a known, named sampling distribution.
 
 
-A wilcoxon singed-rank test is for a one-sample or paired data setting
+A wilcoxon signed-rank test is for a one-sample or paired data setting and is distribution-less
+
+A p-value for a wilcoxon signed-rank test is approximate if there are ties, if there are none, the p-value is exact
+
+
+
+Mann-Whitney test: distribution free/nonparametric alternative to a two-sample t-test (also called Wilcoxon rank-sum test)
+  -assumes two samples are independent
+  -the variable of interest is continuous
+  -we in this class will also assume two distributions are different
+  
+
+
+
 

@@ -30,22 +30,40 @@ power1 <- MyPwrFun(alpha = .05, m1 = 1, m2 = .8, s1 = .32, s2 = .04, n1 = 20, n=
 
 The power for this scenario would be `r round(power1,2)`. 
 
-
-
 ### Part B
 
 Power is the probability of rejecting the null hypothesis when the alternative hypothesis is true. It is affected by variability, and as variability increases, power decreases.If we enroll more individuals in the population with more variability, that normalizes the variance of that group by a larger value, reducing variability, given that we have assumed normally distributed source populations.
 
 ### Part C
 
+```{r}
+pwrdf <- data.frame()
+for (x in 0:40){
+  powers <- MyPwrFun(alpha = .05, m1 = 1, m2 = .8, s1= .32, s2 = .04, n1 = x, n2 = 40-x)
+  pwrdf <- rbind(pwrdf, c(x, powers))
+}
+```
+
+
+A sample split of 36-4 observations per group would yield us the highest power, with power being calculated as 0.9396 for that split.
+
+## Quuestion 2
+
+### Part 1
+
+```{r}
+MyPwrFun2 <- function(p1, p2, alpha, p.bar, n1, n2){
+  z1a2 <- qnorm(alpha)
+  d <- abs(p1-p2)
+  quant <- (d - (z1a2 * sqrt(p.bar * (1 - p.bar) ( (1/n1) + (1/n2) ) ) ) ) / (sqrt(((p1 * (1-p1) ) / n1) + (p2 * (1-p2) / n2)))
+  pnorm(quant)
+}
 
 
 
 
 
-
-
-
+```
 
 
 
