@@ -34,7 +34,7 @@ MyPwrFun <- function(alpha, m1, m2, s1, s2, n1, n2){
 power1 <- MyPwrFun(alpha = .05, m1 = 1, m2 = .8, s1 = .32, s2 = .04, n1 = 20, n= 20)
 ```
 
-The power for this scenario would be `r round(power1,2)`. 
+__The power for this scenario would be__ `r round(power1,2)`. 
 
 ### Part B
 
@@ -51,7 +51,7 @@ for (x in 0:40){
 ```
 
 
-A sample split of 36-4 observations per group would yield us the highest power, with power being calculated as 0.9396 for that split.
+__A sample split of 36-4 observations per group would yield us the highest power, with power being calculated as 0.9396 for that split.__
 
 ## Question 2
 
@@ -62,12 +62,6 @@ Investigators hope to determine if a large dose of vitamin E will prevent cancer
 How large of a sample is needed to have 90% power of a two-sided test of proportions at a 0.05 significance level of .05? Assume equal allocation to the two arms.
 
 ```{r}
-MyPwrFun2 <- function(p1, p2, alpha, p.bar, n1, n2){
-  z1a2 <- qnorm(1- alpha/2)
-  d <- abs(p1-p2)
-  quant <- (d - (z1a2 * sqrt(p.bar * (1 - p.bar) * ( (1/n1) + (1/n2) ) ) ) ) / (sqrt(((p1 * (1-p1) ) / n1) + (p2 * (1-p2) / n2)))
-  pnorm(quant)
-}
 
 SampSizePropsFun <- function(alpha, k, beta, p1, p2){
   z1a2 <- qnorm(1-alpha/2)
@@ -87,7 +81,7 @@ ans2a
 ```
 
 
-A sample size of `r 2*ans2a` is needed to have a power of 90% using equal allocation.
+__A sample size of__ `r 2*ans2a` __is needed to have a power of 90% using equal allocation.__
 
 ### Part B
 
@@ -95,16 +89,88 @@ Create a smooth plot of power as a function of sample size per group assuming eq
 
 
 ```{r}
+MyPwrFun2 <- function(p1, p2, alpha, p.bar, n1, n2){
+  z1a2 <- qnorm(1- alpha/2)
+  d <- abs(p1-p2)
+  quant <- (d - (z1a2 * sqrt(p.bar * (1 - p.bar) * ( (1/n1) + (1/n2) ) ) ) ) / (sqrt(((p1 * (1-p1) ) / n1) + (p2 * (1-p2) / n2)))
+  pnorm(quant)
+}
+
 powerdf2 <- data.frame()
 for (x in 1:200){
-  outputs <- MyPwrFun2(p1 = .8, p2 = .64, alpha = .05, p.bar = .72, n1 = x, n2 = 200-x)
+  outputs <- MyPwrFun2(p1 = .8, p2 = .64, alpha = .05, p.bar = .72, n1 = x, n2 = x)
   powerdf2 <- rbind(powerdf2, c(x, outputs))
 }
 
+colnames(powerdf2) <- c("SampleSize", "Power")
 
+ggplot(powerdf2, aes(x = SampleSize, y = Power))+
+  geom_line()
 
 
 ```
+
+__The power for a sample size of 180 per group is 0.926.__
+
+
+## Question 3
+
+One sign of early chronic kidney disease (CKD) is preserved kidney function with excess albumin in the urine, measured as the ratio of albumin to creatinine (ACR) in mg/g. An ACR ≥ 30 mg/g is evidence of CKD. Below are ACR measurements from a small sample of Black Americans with preserved kidney function:
+
+```{r}
+dat <- c(8, 46, 95, 21, 6, 2168, 1056, 19, 15, 55)
+
+```
+
+### Part A
+
+What is the sample mean of the data? If a researcher wants to determine if the population mean of ACR among Black Americans is greater than 30, why would a one-sample t-test be inappropriate?
+
+__The sample mean for this data is__ `r mean(dat)`. __A one-sample t-test would not be appropriate for this scenario because the data are clearly not normally distributed__
+
+### Part B
+
+Report the p-value and inference at the 0.1 level from a one-sample t-test to determine if mean ACR is greater than 30 in this population (i.e., just give Step 4 and 5).
+
+```{r}
+mytest <- t.test(dat, mu = 30, alternative = "greater", conf.level = .1)
+```
+
+__The p-value is__ `r mytest$p.value` __. We fail to reject the null hypothesis based on this result that the mean ACR among Black Americans is less than 30__
+
+### Part C
+
+
+##### Step 1: Center your data around the hypothesized median
+
+A WSR to determine if the sample median is greater than 30 would be more appropriate for this problem. Perform this test BY HAND for full credit listing all steps of the hypothesis test. (Of course, you may check your answer with software.)
+
+```{r}
+newdat <- dat - 30
+
+```
+
+##### Step 2: Discard any 0 values
+
+There are no values of 0 to discard.
+
+##### Step 3: Rank the data in order of magnitude
+
+```{r}
+
+```
+
+
+
+
+#### Part 2: Hypotheses
+
+
+```{r}
+
+
+```
+
 
 
 
