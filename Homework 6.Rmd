@@ -147,7 +147,7 @@ A WSR to determine if the sample median is greater than 30 would be more appropr
 
 ```{r}
 newdat <- dat - 30
-
+newdf <- newdat %>% as.data.frame()
 ```
 
 ##### Step 2: Discard any 0 values
@@ -157,21 +157,55 @@ There are no values of 0 to discard.
 ##### Step 3: Rank the data in order of magnitude
 
 ```{r}
+colnames(newdf) <- c("obs")
+new2 <- newdf %>% arrange(abs(obs)) %>% 
+  mutate(rank = 1:10)
+```
+
+##### Step 4: Define W+ and W-
+
+```{r}
+wplus <- new2 %>% filter(obs > 0) %>% 
+  summarise(wp = sum(rank))
+
+wminus <- new2 %>% filter(obs < 0) %>% 
+  summarise(wm = sum(rank))
+
 
 ```
 
+### Hypothesis Test
 
+#### Part 1: Know the data
 
+We assume that the distribution of weight differences is continuous.
 
 #### Part 2: Hypotheses
 
+$$
+H_0: \zeta_{0.5} \le 0
+$$
+
+$$
+H_a: \zeta_{0.5} > 0
+$$
+
+#### Part 3: Test Statistic and Distribution
+
+We will use $W^+$ as our test statistic, which is a distribution-less statistic.
+
+#### Part 4: P-value
 
 ```{r}
-
-
+wilcox.test(new2$obs, alternative="greater", mu=0, paired=FALSE,
+ exact=TRUE, correct=FALSE)
 ```
 
+The p-value for this test is 0.1611, and the test statistic is 38.
 
+#### Part 5: Conclusions
+
+We fail to reject the null hypothesis at the $0.05$ level that the median ACR is greater than 30.
 
 
 
