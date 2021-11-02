@@ -7,7 +7,7 @@ Benefits of pairing:
   
 Drawbacks of pairing:
   - Fewer degrees of freedom, yielding higher critical values
-  - Another one in the notes, section 8-5
+  - If someone drops out, that is 2 observations lost instead of just 1, section 8-5
   
 "-2psigma_1sigma_2" is the covariance, which is subtracted off and is what reduces the variance
 

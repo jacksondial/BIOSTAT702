@@ -1,0 +1,192 @@
+---
+title: "Exam 2 Review"
+author: "Jackson Dial"
+date: "11/2/2021"
+output: word_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+
+## Question 2
+
+Miyazaki et al. (A-30) examined the recurrence-free rates of stripping with varicectomy and stripping with sclerotherapy for the treatment of primary varicose veins. The varicectomy group consisted of 122 limbs for which the procedure was done, and the sclerotherapy group consisted of 98 limbs for which that procedure was done. After 3 years, 115 limbs of the varicectomy group and 87 limbs of the sclerotherapy group were recurrence-free. Is this sufficient evidence for us to conclude there is no difference, in general, in the recurrence free rate between the two procedures for treating varicose veins? Let α = 0.05. 
+
+### Step 1
+
+Assume the population of the two procedures are independent. The sample proportion of procedure 1 and the sample proportion of procedure 2 are both approximately normally distributed due to the large simple size and __rule of thumb__ (what is the rule of thumb here)
+
+### Step 2
+
+Perform a 2-sided test, let $\pi_1$ be the proportion of procedure 1 with the outcome and $\pi_2$ be the proportion of procedure 2 with the outcome.
+
+$$
+H_0: \pi_1 = \pi_2
+$$
+
+$$
+H_a: \pi_1 \neq \pi_2
+$$
+
+### Step 3
+
+```{r}
+n1 <- 122
+n2 <- 98
+p1 <- 115/122
+p2 <- 87/98
+pbar <- (n1*p1 + n2*p2) / (n1+n2)
+
+z <- (p1-p2) / sqrt((pbar*(1-pbar)/n1) + (pbar*(1-pbar)/n2))
+z
+```
+
+### Step 4
+
+```{r}
+2* (1-pnorm(z))
+
+```
+
+
+### Step 5
+
+Fail to reject etc.
+
+
+## Question 2
+
+Iannelo et al. (A-38) investigated differences between [normally distributed] triglyceride levels in healthy obese (control) subjects and obese subjects with chronic active B or C hepatitis. Triglyceride levels of 208 obese controls had a mean value of 1.81 with a standard error of the mean of .07 mmol/L. The 19 obese hepatitis subjects had a mean of .71 with a
+standard error of the mean of .05. Is this sufficient evidence for us to conclude that, in general, a difference exists in average triglyceride levels between obese healthy subjects
+and obese subjects with hepatitis B or C? Let α =0.01.
+
+#### Hypothesis testing of mean difference with known variance: 7-7
+
+
+```{r}
+n1 <- 208
+m1 <- 1.81
+s1 <- .07
+
+n2 <- 19
+m2 <- .71
+s2 <- .05
+
+sig1 <- s1 * sqrt(n1)
+sig2 <- s2 * sqrt(n2)
+
+t = (m1 - m2) / sqrt(( (sig1^2) / n1 ) + ( (sig2^2) / n2 ))
+t
+
+##Satterthwaite approximation
+
+v1 = sig1^2 / n1
+v2 = sig2^2 / n2
+
+v <- (((v1+v2)^2) / ((v1^2 / (n1-1)) + (v2^2 / (n2-1))))
+v
+
+
+
+2 * (1-pt(t, v))
+```
+
+## Question 3
+
+John M. Morton et al. (A-14) examined gallbladder function before and after fundoplication – a surgery used to stop stomach contents from flowing back into the esophagus (reflux) – in patients with gastroesophageal reflux disease. The authors measured gallbladder functionality by calculating the [normally distributed] gallbladder ejection fraction (GBEF) before and after fundoplication. The goal of fundoplication is to increase GBEF, which is measured as a percent. We wish to know if these data provide sufficient evidence to allow us to conclude that fundoplication increases GBEF functioning. Let α=0.05.
+
+#### Paired data t test: 8:10
+
+__Note I am skipping the steps in the hypothesis test just for brevity, reference the specified slide for full details__
+
+
+```{r}
+pre <- c(22, 63.3, 96, 9.2, 3.1, 50, 33, 69, 64, 18.8, 0, 34)
+post <- c(63.5, 91.5, 59, 37.8, 10.1, 19.6, 41, 87.7, 86, 55, 88, 40)
+
+df <- as.data.frame(cbind(pre, post))
+df2 <- df %>% mutate(diffs = post-pre)
+n <- length(pre)
+dbar <- mean(df2$diffs)
+s <- sd(df2$diffs)
+mu_d <- 0
+
+tstat <- (dbar - mu_d) / (s/sqrt(n))
+
+1 - pt(tstat, n-1)
+
+```
+
+
+## Question 4
+
+Borden et al. (A-30) compared meniscal repair techniques using cadaveric knee specimens.
+One of the variables of interest was the [normally distributed] load at failure (in newtons) for knees fixed with the FasT-FIX technique (group 1) and the vertical suture method (group 2). Each technique was applied to six specimens. The standard deviation for the FasT-FIX
+method was 30.62, and the standard deviation for the vertical suture method was 11.37.
+Can we conclude that, in general, the variance of load at failure is higher for the FasT-FIX
+technique than the vertical suture method?
+
+```{r}
+sd1 <- 30.62
+sd2 <- 11.37
+
+f <- sd1^2/sd2^2
+
+1- pf(f, 5, 5)
+
+```
+
+
+
+## Question 5
+
+In a study by Zuckerman and Heneghan (A-3), hemodynamic stresses were measured on
+subjects undergoing laparoscopic cholecystectomy. An outcome variable of interest was the
+ventricular end diastolic volume (LVEDV) measured in milliliters. A portion of the data
+appear in the following table. Baseline refers to a measurement taken 5 minutes after
+induction of anesthesia, and the term “5 minutes” refers to a measurement taken 5 minutes
+after baseline. May we conclude, on the basis of these data, that among subjects
+undergoing laparoscopic cholecystectomy, the average LVEDV levels change? Let α=0.01.
+
+```{r}
+subject <- 1:10
+baseline <- c(51.7, 79, 78.7,80.3,72,85,69.7,71.3,55.7,56.3)
+minutes5 <- c(49.3, 72, 87.3, 88.3, 103.3, 94, 94.7, 47.3, 71.2, 71.3)
+
+df <- as.data.frame(cbind(subject, baseline, minutes5)) %>% 
+  mutate(diffs = minutes5 - baseline)
+
+ggplot(df, aes(x = diffs))+
+  geom_histogram()
+
+ggplot(df, aes(y = diffs))+
+  geom_boxplot()
+#we first make it a one sample by computing the differences, then since it is not normally distributed, we cannot assume the population is normal so we will conduct a non-parametric test:
+
+mytest <- wilcox.test(df$diffs, alternative = "greater", mu=0, paired=FALSE,
+ exact=TRUE, correct=FALSE)
+2* mytest$p.value
+
+#We do 2* here because our alternative hypothesis is not equal to
+
+```
+
+
+
+
+
+
+
+
+
+
+
+

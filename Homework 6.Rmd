@@ -206,8 +206,3 @@ The p-value for this test is 0.1611, and the test statistic is 38.
 #### Part 5: Conclusions
 
 We fail to reject the null hypothesis at the $0.05$ level that the median ACR is greater than 30.
-
-
-
-
-

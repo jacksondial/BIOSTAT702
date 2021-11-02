@@ -1,0 +1,13 @@
+Section 9: Contingency Tables
+
+A contingency table is what is used in a Chi-squared test of independence.
+
+Sample from R populations, observe a variable classifide in C catagories is a chi-squared test of homogeneity - assess whether the probabilities are the same across the two populations
+
+Sample from one population, observe two characteristics on each unit- chi squared test of independence - assess if the two characteristics are independent of each other.
+
+Sample from one population and just one random variable - chi squared goodness of fit test - assess whether observed data were sampled  form some specified distribution
+
+
+
+When sample sizes or expected counts are small, we should do fisher's exact test instead of chi-squared tests.
