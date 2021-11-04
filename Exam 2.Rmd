@@ -1,0 +1,208 @@
+---
+title: "Exam 2"
+author: "Jackson Dial"
+date: "11/3/2021"
+output: word_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Question 1
+
+Standard deviation is referring to the spread of data in a population or in a sample, while standard error is a measure of spread regarding a sampling distribution. Standard error is also referred to as the standard deviation OF A sampling distribution, and is interpreted as how the values of a statistic vary about the mean value.
+
+## Question 2
+
+### Part A
+
+The distribution of $\bar{X} - \bar{Y}$ is as follows:
+
+$$
+N \sim(\mu_x - \mu_y, \frac{\sigma_x^2}{m} + \frac{\sigma_y^2}{n})
+$$
+
+### Part B
+
+The test statistic and sampling distribution used could be:
+
+$$
+F = \frac{S_x^2 / \sigma_x^2}{S_y^2 / \sigma_y^2} \sim F_{m-1,n-1}
+$$
+
+## Question 3
+
+### Part A
+
+Prospective, observational, cohort, longitudinal study.
+
+### Part B
+
+```{r}
+n1 <- 200
+n2 <- 1000
+
+p1 <- 15/n1
+p2 <- 39/n2
+```
+
+#### Step 1
+
+Assume the population of the two exposures (PMH and no PMH) are independent. The sample proportion of those with PMH and the sample proportion of those without are both approximately normally distributed. Due to the large simple size we can assume normal theory will hold, also because our expected counts are both greater than 5:
+
+```{r}
+#check expected counts
+n1*p1*(1-p1)
+n2*p2*(1-p2)
+```
+
+#### Step 2
+
+Perform a two-sided test because we have no clinical justification for performing a one-sided test. Let $\pi_1$ be the proportion of those with PMH who developed breast cancer and let $\pi_2$ be the proportion of those without PMH exposure who developed breast cancer. Let $\delta = \pi_1 - \pi_2$. The hypotheses and significance level are as follows:
+
+$$
+H_0: \delta = 0
+$$
+
+$$
+H_a: \delta \neq 0
+$$
+
+$$
+\alpha = .05
+$$
+
+#### Step 3
+
+The standard error of the test statistic depends on a pooled estimate of the
+variance because the null hypothesis is that the two population proportions
+are equal and we have two estimates of the common proportion.
+
+
+Let Z be our test statistic:
+
+$$
+Z = \frac{p_1-p_2-0}{\sqrt{\frac{\bar{p}(1-\bar{p})}{n_1}+\frac{\bar{p}(1-\bar{p})}{n_2}}} \sim N(0,1) \text{ under } H_0
+$$
+
+Where:
+
+$$
+\bar{p} = \frac {n_1p_1+n_2p_2}{n_1+n_2}
+$$
+
+
+#### Step 4
+
+```{r}
+pbar <- (n1*p1 + n2*p2) / (n1+n2)
+
+z <- (p1-p2) / sqrt((pbar*(1-pbar)/n1) + (pbar*(1-pbar)/n2))
+z
+
+p <- 2 * (1-pnorm(z))
+p
+```
+
+The p value is 0.025 and the test statistic is 2.242
+
+#### Step 5
+
+Given our p value we reject the null hypothesis and can conclude that the proportion of breast cancer cases is different between PMH current users and PMH never users.
+
+
+### Part C
+
+```{r}
+zscore <- qnorm(1-(.05/2))
+(p1 - p2) - zscore * sqrt( (p1*(1-p1) / n1) + (p2*(1-p2))/n2)
+(p1 - p2) + zscore * sqrt( (p1*(1-p1) / n1) + (p2*(1-p2))/n2)
+```
+
+The 95% confidence interval is (-.016, 0.088), which does contain 0.
+
+### Part D
+
+I would present both methods of inference to be transparent, and conclude that further analysis/research is necessary. Unfortunately we cannot ignore the results of our confidence interval just because we "don't like them" or that they disagree with our hypothesis test. Of course, we want to be able to conclude that we have found a significant difference in our two populations regarding breast cancer cases, but since our confidence interval contains 0 we cannot strictly say that we found a statistically significant difference.
+
+## Question 4
+
+### Part A
+
+At the .05 level, there is NOT a significant difference in mean egg length between the two diets. The test I chose here is Test 3: Two sample t-test, unequal variance. I chose this because the data are not paired, as one chicken in group A is different from any other chicken in group B. The variances between the two groups are also different, and do not follow the rule of thumb of being within 3x of each other.
+
+### Part B
+
+A test statistic the researcher could use for this is $W-$ which is the sum of the ranks associated with negative values of $Y_i^*$. We would first center the data at 0 by subtracting the hypothesized median valeu (45) from each observation. We would discard all 0 values, then rank the new values in order of magnitude.
+
+The researcher would reject for large values of this test statistic, as the alternative hypothesis is that the median egg length among those in the controlled diet group is less than 45, so it is a one sided test. Since $W-$ is essentially counting the values, 'weighted' by rank, that are less than 45, to reject the null we need to have a lot of values that are negative, after centering at 45.
+
+## Question 5
+
+### Part A
+
+```{r}
+MyPwrFun <- function(alpha, m1, m2, s1, s2, n1, n2){
+  z1a2 <- qnorm(1 - alpha / 2)
+  za2 <- qnorm(alpha / 2)
+  quant <- (m1-m2) / sqrt( (s1^2/n1) + (s2^2/n2) )
+  beta <- pnorm(z1a2 - quant) - pnorm(za2 - quant)
+  power <- 1- beta
+  return(power)
+}
+  
+MyPwrFun(alpha = .01, m1 = 50, m2 = 0, s1 = 200, s2 = 200, n1 = 150, n2 = 150)
+
+power.t.test(n = 150, d = 50, sd = 200, sig.level = .01, power = NULL, type = "two.sample")
+```
+
+The power for this calculation would be __0.34__. 
+
+### Part B
+
+```{r}
+power.t.test(n = 150, d = 50, sd = 200, sig.level = .01, power = NULL, type = "two.sample")
+power.t.test(n = 150, d = 0, sd = 200, sig.level = .01, power = NULL, type = "two.sample", alternative = "one.sided")
+
+```
+
+
+Since power is the probability of rejecting the null when the alternative is true, a one-sided test will yield greater power when compared to a two-sided test, given that all other variables are held constant. **BUT** since we are now considering only significant difference from 0, and no longer a clinical difference of 50, our alternative hypothesis changes more than just from two-sided to one-sided. __We now have less power__ as is shown in the calculations above. This makes sense because we are changing the definition of what a significant difference is (from 50 to 0) which logically, is less extreme. For example, if you were to be asked if a computed difference is different from 0 and it was found to be, say, 12 you would probably say yes (ignoring any statistics, just speaking from a logical standpoint). Now if I were to say a significant difference is 50 or more, and the same computed difference of 12 was presented, that is not a logically significant difference anymore. 
+
+### Part C
+
+One drawback to a one-sided test is that there is fundamentally no statistical power to detect an effect in the other direction.
+
+## Question 6
+
+### Part A
+
+__TRUE__
+
+### Part B
+
+__FALSE__
+
+### Part C
+
+__TRUE__
+
+### Part D
+
+```{r}
+1 -pf(.19,3,12)
+pf(.19, 3,12, lower.tail = F)
+```
+
+__TRUE__
+
+### Part E
+
+__TRUE__
+
+
+
+
