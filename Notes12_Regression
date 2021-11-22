@@ -1,0 +1,14 @@
+Notes for Section 12 Regression
+
+The assumption of normality is only for the errors, but if we asusme that then the formula Y_1 = \beta_0 + \beta_1 * x_i + \epsilon_i is just a linear combination of a normally distributed random variable, which means that Y_i is also  anormally distributed random variable. But if Y is already normal, then we need not condition on the X for normality.
+
+The normailty assumptions only kick in when we want to actually perform hypothesis testing on \beta_1 & \beta_2. We need this assumption because beta_0 is just a linear combinaiton of y-bar. THe estimates of \beta_1 & \beta_2 are totally fine without any normality assumption.
+
+The residual standard error on the lm output is \sigma_hat
+
+Testing the slope is the same as a t-test of the correlation
+
+
+
+
+

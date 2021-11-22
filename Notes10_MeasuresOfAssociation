@@ -1,0 +1,28 @@
+Section 10: Measures of Association
+
+1) Discuss McNemar's test for paired data
+2) This is where we quantify the association between 2 categorical variables using risk and odds.
+3) How to address confounding
+
+McNemar's test: We have paired data, but we are not assuming continuous distributions for each of our populations anymore, but Bernoulli distribtions.
+
+Concordant pairs are where the matched pairs in which the outcome is the same for each member of the pair. WE IGNORE THESE because they give us no information against the null.
+
+Discordant pairs are the opposite, and this is what we examine in the test.
+
+If the alternative is true, we would expect one type of discordant pair to occur more than the other.
+
+To do this in an exact way, we use a binomial distribution, but the built-in function in R use a chi-squared approximation
+
+
+When comparing risks, we can use words like risk and likely. When working with odds ratio, do not use words related to "likely".
+
+FOR NOTES ON INTERPRETATIONS, REVIEW SECTION 10-19
+
+Final exam: Timeframe 3 hours wednesday, December 8, 2-5. Cannot use internet except for sakai.
+
+
+TO examine the unadjusted association between baldness and MI after controlling for age, we use the mantel-hantzel procedure. If there is at least 1 of the stratum that does not have an odds ratio of 1, then we can conclude that age is a confounder. the mantel-hantzel only shows that at least one is different from 1, but we cannot conclude which one(s).
+
+A common odds ratio is a measure of the association between a risk factor and an outcome. This is called the common odds ratio which is also called the adjusted odds ratio.
+

@@ -1,0 +1,15 @@
+Section 11: Introduction to Correlation
+
+Here we are going to be examining the linear association between two continuous variables.
+
+**Check assumptions** On slide 11-4
+
+the correlation on the ranks using pearson is the same as doing correlation on the actual data using spearman.
+
+Because there is no real practical interpretation of the correlation coefficient in person'a or spearman's, there is also Kendall's \tau correlation coefficient. See 11-32 for explanation
+
+
+
+
+
+
