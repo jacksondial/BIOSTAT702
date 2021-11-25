@@ -1,0 +1,82 @@
+---
+title: "Randoms"
+author: "Jackson Dial"
+date: "11/23/2021"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+$$
+n_{++}
+$$
+
+$$
+n_{+2}
+$$
+$$
+n_{+1}
+$$
+$$
+\hat{\pi_1} - \hat{\pi_2} +- z_{1-\alpha / 2}\sqrt{\frac{\hat{\pi_1}(1-\hat{\pi_1})}{n_{1+}} + \frac{\hat{\pi_2}(1-\hat{\pi_2})}{n_{2+}}   }
+$$
+$$
+\pi_1
+$$
+$$
+\hat{\pi_1} = n_{11}/n_{1+}
+$$
+$$
+\hat{\pi_2} = n_{21}/n_{2+}
+$$
+
+$$
+RR = \pi_1 / \pi_2
+$$
+
+
+$$
+\widehat{RR} = \frac{n_{11}/ n_{1+}}{n_{21}/ n_{2+}}
+$$
+
+$$
+log( \frac{ \hat{ \pi_1} } {\hat{\pi_2}} ) +- z_{1-\alpha/2} \sqrt{ \frac{n_{12}} {n_{11}n_{1+}}+ \frac{n_{22}}{n_{21}n_{2+}}}
+$$
+$$
+OR = \frac {\pi_1/(1-\pi_1)}{\pi_2/(1-\pi_2)}
+$$
+
+# OR
+
+$$
+\widehat{OR} = \frac{n_{11}{n_{22}}}{n_{12}n_{21}}
+$$
+
+# CI for OR
+
+$$
+log(\widehat{OR}) +- z_{1-\alpha/2}\sqrt{\frac{1}{n_{11}} + \frac{1}{n_{12}} + \frac{1}{n_{21}} + \frac{1}{n_{22}}}
+$$
+
+
+
+$$
+H_0: \theta_1 = \text{...} = \theta_k = 1\text{, where } \theta_k \text{ is the OR computed from the } k^{th} \text{ table}
+$$
+$$
+H_a: \theta_k \neq 1 \text{ for at least one k = 1, ... ,}K 
+$$
+$$
+\text{Under } H_0, X_{MH} \sim \chi^2_1
+$$
+
+
+
+
+
+
+

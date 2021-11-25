@@ -88,7 +88,7 @@ The test statistic is `r round(ts, 2)`, and the two-sided p-value is `r round(pv
 
 #### Step 5: Draw Inference Based on Significance Level
 
-Based on our level of significance we fail to reject the null hypothesis that the true standard deviation is not equal to 7.5.
+Based on our level of significance we fail to reject the null hypothesis that the true standard deviation is equal to 7.5.
 
 ## Part B
 
@@ -123,7 +123,7 @@ Assume that the rate of cataracts among individuals exposed to excess sunlight f
 #### Step 2: Set up Statistical Hypotheses
 
 $$
-H_0: \mu = 30
+H_0: \mu >= 30
 $$
 
 $$
@@ -223,13 +223,16 @@ dat1 <- dat %>%
     T ~ "NA"
   )
   ) %>% 
+  mutate(diet2kcat = case_when(dietKCat %in% c("adequate intake", "borderline adequate intake") ~ "adequate",
+                               TRUE ~ "inadequate"
+    
+  ))%>% 
   replace_with_na(replace = list(CKD = 2,
                                  serumKCat = "NA",
                                  dietKCat = "NA"))
 
 ads <- dat1 %>% 
-  filter(is.na(CKD) == FALSE, is.na(serumK) == FALSE)
-
+  filter(is.na(CKD) == FALSE, is.na(serumK) == FALSE) 
 ```
 
 ## Section 4.1
@@ -246,9 +249,9 @@ ggplot(ads, aes(x = as.factor(CKD), group = as.factor(CKD), y = serumK))+
 The two populations we are examining, those with positive CKD status and those with negative CKD status, are both assumed to be normally distributed, and to be independent of each other.
 
 
-We will assume that the population of those with positive CKD status: $\sim N(\mu_1, \sigma^2_1)$
+We will assume that serum K among those with positive CKD status: $\sim N(\mu_1, \sigma^2_1)$
 
-We will assume that the population of those with negative CKD status: $\sim N(\mu_2, \sigma^2_2)$
+We will assume that serum K among those with negative CKD status: $\sim N(\mu_2, \sigma^2_2)$
 
 ```{r}
 ckdPos <- ads %>% filter(CKD == 1)
@@ -262,16 +265,16 @@ s2 <- sd(ckdNeg$serumK)
 
 ```
 
-A random sample of $n_1 = 64$ was taken and the sample mean +/- sample variance was found to be: `r xbar1` $+/-$ `r s1`. 
+A random sample of $n_1 = 64$ was taken and the sample mean +/- sample variance was found to be: `r round(xbar1,3)` $+/-$ `r round(s1,3)`. 
 
-A random sample of $n_2 = 236$ was taken and the sample mean +/- sample variance was found to be: `r xbar2` $+/-$ `r s2`.
+A random sample of $n_2 = 236$ was taken and the sample mean +/- sample variance was found to be: `r round(xbar2, 3)` $+/-$ `r round(s2,3) `.
 
-The random variables of the mean serumK for respective populations of positive/negative CKD status are also assumed to be independent of each other.
+The random variables of the mean serum K for respective populations of positive/negative CKD status are also assumed to be independent of each other.
 
 
 We are performing the variance ratio test to determine if variance can be assumed to be equal for individuals with positive CKD status and those with negative CKD status.
 
-A second way we could test for equal variances is to compute a confidence interval for each of the population variances, and if they overlap at all then we have evidence to assume equal variance. If they do not overlap, we have evidence to say that they are unequal.
+A second way we could test for equal variances is to use the rule of thumb.
 
 #### If variances are equal
 
@@ -708,4 +711,4 @@ These results do not align with my original hypotheses, as I hypothesized that h
 
 #### Confidence Interval
 
-The confidence interval for the true difference in mean eGFR between individuals with inadequate and adequate dietary K is [`r mytest2$conf.int[1]`, `r mytest2$conf.int[2]`. As 0 is included in this interval, we can conclude there is no difference in mean mean eGFR between individuals with inadequate and adequate dietary K.
+The confidence interval for the true difference in mean eGFR between individuals with inadequate and adequate dietary K is [`r mytest2$conf.int[1]`, `r mytest2$conf.int[2]`. As 0 is included in this interval, we can conclude there is no difference in mean eGFR between individuals with inadequate and adequate dietary K.
